@@ -1,10 +1,12 @@
-#include <lvgl.h>
 #include <GxEPD2_BW.h>
 #include "board.h"
 #include "GxEPD2_display_selection_new_style.h"
 #include <U8g2_for_Adafruit_GFX.h>
 
-U8G2_FOR_ADAFRUIT_GFX u8g2Fonts;
+U8G2_FOR_ADAFRUIT_GFX u8g2Fonts1;
+U8G2_FOR_ADAFRUIT_GFX u8g2Fonts2;
+U8G2_FOR_ADAFRUIT_GFX u8g2Fonts3;
+U8G2_FOR_ADAFRUIT_GFX u8g2Fonts4;
 
 const char HelloWorld[] = "Hello World!";
 const char one[] = "Hello World!";
@@ -23,32 +25,102 @@ void setup()
     display4.init(115200, true, 2, false);
 
     display1.setRotation(0);
-    u8g2Fonts.begin(display1);
+    display2.setRotation(0);
+    display3.setRotation(0);
+    display4.setRotation(0);
+
+    u8g2Fonts1.begin(display1);
     if (display1.pages() > 1)
     {
         delay(100);
         Serial.print("pages = "); Serial.print(display1.pages()); Serial.print(" page height = "); Serial.println(display1.pageHeight());
         delay(1000);
     }
+    u8g2Fonts2.begin(display2);
+    if (display2.pages() > 1)
+    {
+        delay(100);
+        Serial.print("pages = "); Serial.print(display2.pages()); Serial.print(" page height = "); Serial.println(display2.pageHeight());
+        delay(1000);
+    }
+    u8g2Fonts3.begin(display3);
+    if (display3.pages() > 1)
+    {
+        delay(100);
+        Serial.print("pages = "); Serial.print(display3.pages()); Serial.print(" page height = "); Serial.println(display3.pageHeight());
+        delay(1000);
+    }
+    u8g2Fonts4.begin(display4);
+    if (display4.pages() > 1)
+    {
+        delay(100);
+        Serial.print("pages = "); Serial.print(display4.pages()); Serial.print(" page height = "); Serial.println(display4.pageHeight());
+        delay(1000);
+    }
     volatile uint16_t bg = GxEPD_WHITE;
     volatile uint16_t fg = GxEPD_BLACK;
-    u8g2Fonts.setFontMode(1);                 // use u8g2 transparent mode (this is default)
-    u8g2Fonts.setFontDirection(0);            // left to right (this is default)
-    u8g2Fonts.setForegroundColor(fg);         // apply Adafruit GFX color
-    u8g2Fonts.setBackgroundColor(bg);         // apply Adafruit GFX color
-    u8g2Fonts.setFont(u8g2_font_logisoso92_tn);  // select u8g2 font from here: https://github.com/olikraus/u8g2/wiki/fntlistall
+    u8g2Fonts1.setFontMode(1);                 // use u8g2 transparent mode (this is default)
+    u8g2Fonts1.setFontDirection(0);            // left to right (this is default)
+    u8g2Fonts1.setForegroundColor(fg);         // apply Adafruit GFX color
+    u8g2Fonts1.setBackgroundColor(bg);         // apply Adafruit GFX color
+    u8g2Fonts1.setFont(u8g2_font_logisoso92_tn);  // select u8g2 font from here: https://github.com/olikraus/u8g2/wiki/fntlistall
+    u8g2Fonts2.setFontMode(1);                 // use u8g2 transparent mode (this is default)
+    u8g2Fonts2.setFontDirection(0);            // left to right (this is default)
+    u8g2Fonts2.setForegroundColor(fg);         // apply Adafruit GFX color
+    u8g2Fonts2.setBackgroundColor(bg);         // apply Adafruit GFX color
+    u8g2Fonts2.setFont(u8g2_font_logisoso92_tn);  // select u8g2 font from here: https://github.com/olikraus/u8g2/wiki/fntlistall
+    u8g2Fonts3.setFontMode(1);                 // use u8g2 transparent mode (this is default)
+    u8g2Fonts3.setFontDirection(0);            // left to right (this is default)
+    u8g2Fonts3.setForegroundColor(fg);         // apply Adafruit GFX color
+    u8g2Fonts3.setBackgroundColor(bg);         // apply Adafruit GFX color
+    u8g2Fonts3.setFont(u8g2_font_logisoso92_tn);  // select u8g2 font from here: https://github.com/olikraus/u8g2/wiki/fntlistall
+    u8g2Fonts4.setFontMode(1);                 // use u8g2 transparent mode (this is default)
+    u8g2Fonts4.setFontDirection(0);            // left to right (this is default)
+    u8g2Fonts4.setForegroundColor(fg);         // apply Adafruit GFX color
+    u8g2Fonts4.setBackgroundColor(bg);         // apply Adafruit GFX color
+    u8g2Fonts4.setFont(u8g2_font_logisoso92_tn);  // select u8g2 font from here: https://github.com/olikraus/u8g2/wiki/fntlistall
     
     display1.firstPage();
     do
     {
         display1.fillScreen(bg);
-        u8g2Fonts.setCursor(20, 200); // start writing at this position
-        u8g2Fonts.print("1");
+        u8g2Fonts1.setCursor(20, 200); // start writing at this position
+        u8g2Fonts1.print("1");
     }
     while (display1.nextPage());
+    
+    display2.firstPage();
+    do
+    {
+        display2.fillScreen(bg);
+        u8g2Fonts2.setCursor(20, 200); // start writing at this position
+        u8g2Fonts2.print("2");
+    }
+    while (display2.nextPage());
+
+    display3.firstPage();
+    do
+    {
+        display3.fillScreen(bg);
+        u8g2Fonts3.setCursor(20, 200); // start writing at this position
+        u8g2Fonts3.print("3");
+    }
+    while (display3.nextPage());
+
+    display4.firstPage();
+    do
+    {
+        display4.fillScreen(bg);
+        u8g2Fonts4.setCursor(20, 200); // start writing at this position
+        u8g2Fonts4.print("4");
+    }
+    while (display4.nextPage());
     //Serial.println("helloWorld done");
 
     display1.hibernate();
+    display2.hibernate();
+    display3.hibernate();
+    display4.hibernate();
 	Serial.println("Setup done ....");
 }
 
