@@ -1,5 +1,6 @@
 #include <GxEPD2_BW.h>
 #include "board.h"
+#include "bitmaps.h"
 #include "GxEPD2_display_selection_new_style.h"
 #include <U8g2_for_Adafruit_GFX.h>
 
@@ -80,7 +81,7 @@ void setup()
     u8g2Fonts4.setBackgroundColor(bg);         // apply Adafruit GFX color
     u8g2Fonts4.setFont(u8g2_font_logisoso92_tn);  // select u8g2 font from here: https://github.com/olikraus/u8g2/wiki/fntlistall
     
-    display1.firstPage();
+    /*display1.firstPage();
     do
     {
         display1.fillScreen(bg);
@@ -114,7 +115,7 @@ void setup()
         u8g2Fonts4.setCursor(20, 200); // start writing at this position
         u8g2Fonts4.print("4");
     }
-    while (display4.nextPage());
+    while (display4.nextPage());*/
     //Serial.println("helloWorld done");
 
     display1.hibernate();
@@ -122,10 +123,35 @@ void setup()
     display3.hibernate();
     display4.hibernate();
 	Serial.println("Setup done ....");
+
+    display1.firstPage();
+    do
+    {
+        display1.fillScreen(GxEPD_WHITE);
+        display1.drawInvertedBitmap(0, 0, epd_bitmap_allArray[0], 128, 296, GxEPD_BLACK);
+    }
+    while (display1.nextPage());
+
+    display1.setPartialWindow(0, 0, display1.width(), display1.height());
+    //display.setFullWindow();
+
+    display1.firstPage();
+    do
+    {
+        display1.fillScreen(GxEPD_WHITE);
+        display1.drawInvertedBitmap(0, 0, epd_bitmap_allArray[1], 128, 296, GxEPD_BLACK);
+    }
+    while (display1.nextPage());
+
+
+
+    display1.hibernate();
+    delay(2000);
 }
 
 void loop()
 {
     delay(500);
     //Serial.println("Loop ....");
+    
 }
