@@ -25,8 +25,8 @@ void setup()
     display3.init(115200, true, 2, false);
     display4.init(115200, true, 2, false);
 
-    display1.setRotation(0);
-    display2.setRotation(0);
+    display1.setRotation(2);
+    display2.setRotation(2);
     display3.setRotation(0);
     display4.setRotation(0);
 
@@ -124,16 +124,27 @@ void setup()
     display4.hibernate();
 	Serial.println("Setup done ....");
 
-    display1.firstPage();
+    display4.firstPage();
     do
     {
-        display1.fillScreen(GxEPD_WHITE);
-        display1.drawInvertedBitmap(0, 0, epd_bitmap_allArray[0], 128, 296, GxEPD_BLACK);
+        display4.fillScreen(GxEPD_WHITE);
+        display4.drawInvertedBitmap(0, 0, epd_bitmap_allArray[0], 128, 296, GxEPD_BLACK);
     }
-    while (display1.nextPage());
+    while (display4.nextPage());
 
-    display1.setPartialWindow(0, 0, display1.width(), display1.height());
+    display4.setPartialWindow(0, 0, display4.width(), display4.height());
     //display.setFullWindow();
+
+    for(int i = 1; i<10; i++){
+        display4.firstPage();
+        do
+        {
+            display4.fillScreen(GxEPD_WHITE);
+            display4.drawInvertedBitmap(0, 0, epd_bitmap_allArray[i], 128, 296, GxEPD_BLACK);
+        }
+        while (display4.nextPage());
+        delay(1000);
+    }
 
     display1.firstPage();
     do
@@ -143,9 +154,26 @@ void setup()
     }
     while (display1.nextPage());
 
+    display2.firstPage();
+    do
+    {
+        display2.fillScreen(GxEPD_WHITE);
+        display2.drawInvertedBitmap(0, 0, epd_bitmap_allArray[2], 128, 296, GxEPD_BLACK);
+    }
+    while (display2.nextPage());
 
+    display3.firstPage();
+    do
+    {
+        display3.fillScreen(GxEPD_WHITE);
+        display3.drawInvertedBitmap(0, 0, epd_bitmap_allArray[3], 128, 296, GxEPD_BLACK);
+    }
+    while (display3.nextPage());
 
     display1.hibernate();
+    display2.hibernate();
+    display3.hibernate();
+    display4.hibernate();
     delay(2000);
 }
 
