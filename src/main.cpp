@@ -130,6 +130,7 @@ void updateDisplayTask(void *pvParameters){
         if(min_low != min_low_prev){
             if(d4_up_cnt >= 10){
                 display4.setFullWindow();
+                d4_up_cnt = 0;
             }else{
                 display4.setPartialWindow(0, 0, display4.width(), display4.height());
             }                
@@ -146,6 +147,7 @@ void updateDisplayTask(void *pvParameters){
         if(min_high != min_high_prev){
             if(d3_up_cnt >= 10){
                 display3.setFullWindow();
+                d3_up_cnt = 0;
             }else{
                 display3.setPartialWindow(0, 0, display3.width(), display3.height());
             }                
@@ -162,6 +164,7 @@ void updateDisplayTask(void *pvParameters){
         if(hr_low != hr_low_prev){
             if(d2_up_cnt >= 10){
                 display2.setFullWindow();
+                d2_up_cnt = 0;
             }else{
                 display2.setPartialWindow(0, 0, display2.width(), display2.height());
             }                
@@ -178,6 +181,7 @@ void updateDisplayTask(void *pvParameters){
         if(hr_high != hr_high_prev){
             if(d1_up_cnt >= 10){
                 display1.setFullWindow();
+                d1_up_cnt = 0;
             }else{
                 display1.setPartialWindow(0, 0, display1.width(), display1.height());
             }                
