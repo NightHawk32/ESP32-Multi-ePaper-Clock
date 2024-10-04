@@ -97,6 +97,7 @@ void scanNetworks() {
 }
 
 void setup_wifi() {
+  WiFi.mode(WIFI_STA);  
   delay(10);
   WiFi.begin(MY_WIFI_SSID, MY_WIFI_PASSWORD);
   int counter = 0;
@@ -107,6 +108,11 @@ void setup_wifi() {
   }
   Serial.print("WiFi connected: ");
   Serial.println(MY_WIFI_SSID);
+}
+
+void disable_wifi(){
+    WiFi.disconnect();
+    WiFi.mode(WIFI_OFF);
 }
 
 void updateDisplayTask(void *pvParameters){
@@ -231,9 +237,11 @@ void setup()
     display3.hibernate();
     display4.hibernate();
 	Serial.println("Setup done ....");
-    configTzTime("CET-1CEST,M3.5.0,M10.5.0/3", NTP_SERVER);
-    scanNetworks();
+    //scanNetworks();
     setup_wifi();
+    configTzTime("CET-1CEST,M3.5.0,M10.5.0/3", NTP_SERVER);
+    delay(5000);
+    getLocalTime(&timeinfo);
 
     semDisplay = xSemaphoreCreateBinary();
     xTaskCreate(
@@ -243,7 +251,9 @@ void setup()
         NULL,       // Parameter to pass
         1,          // Task priority
         &updateDisplayTaskHandle  // Assign task handle
-    );
+    );  
+
+    disable_wifi();  
 }
 
 long nextUpdate = 0;
@@ -251,9 +261,9 @@ long nextUpdate = 0;
 
 void loop()
 {
-    if(WiFi.status() != WL_CONNECTED){
+    /*if(WiFi.status() != WL_CONNECTED){
         setup_wifi();
-    }
+    }*/
 
     if(millis() > nextUpdate){    
         if(!getLocalTime(&timeinfo)){
@@ -262,6 +272,15 @@ void loop()
         Serial.println(&timeinfo, "%A, %B %d %Y %H:%M:%S");
         nextUpdate = millis() + (60-timeinfo.tm_sec)*1000;
         xSemaphoreGive(semDisplay);
+
+        if(timeinfo.tm_min == 00){
+            setup_wifi();
+            configTzTime("CET-1CEST,M3.5.0,M10.5.0/3", NTP_SERVER);
+            Serial.println("Re-syncing time via NTP");
+            delay(5000);
+            getLocalTime(&timeinfo);
+            disable_wifi();
+        }
   }
     
 }
