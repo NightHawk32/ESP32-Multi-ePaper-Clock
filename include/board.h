@@ -3,7 +3,7 @@
 
 #define PIN_EPD3_BUSY 4
 #define PIN_EPD3_RST 19
-#define PIN_EPD3_CS 21
+#define PIN_EPD3_CS 16
 
 #define PIN_EPD4_BUSY 13
 #define PIN_EPD4_RST 12
@@ -15,7 +15,7 @@
 
 #define PIN_EPD2_BUSY 33
 #define PIN_EPD2_RST 32
-#define PIN_EPD2_CS 22
+#define PIN_EPD2_CS 21
 
 #define PIN_EPD_DC 5
 //#define PIN_EPD_CLK 1
